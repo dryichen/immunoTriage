@@ -1,0 +1,30 @@
+Package: immunoTriage
+Type: Package
+Title: Benchmarking Immune Gene-Expression Signatures Against Matched Random
+    Gene Sets, with Cell-Type Attribution and Triage
+Version: 0.2.0
+Authors@R: person("dryichen", role = c("aut","cre"),
+    email = "200455590+dryichen@users.noreply.github.com")
+Description: Tools to evaluate immune gene-expression signatures honestly.
+    Signatures are scored with the method used in their original publication (GSVA,
+    ssGSEA, or weighted mean) and compared against a random-gene-set null matched on
+    gene-set size and scoring engine, alongside confounder controls (proliferation,
+    hypoxia, chromosomal instability) that a genuinely immune-specific result must
+    outperform. A signature's expected behavior is predicted from the cell types its
+    signal comes from, using any single-cell reference atlas with cell-type
+    annotation; the model shipped here was trained on a gastric atlas, its predictions
+    were locked before an external validation in cohorts it had never seen, and its
+    behavior under a second, lung atlas is reported in the accompanying paper. The package also estimates the information ceiling of a
+    dataset by fitting penalized and ensemble models under grouped cross-validation.
+License: MIT + file LICENSE
+URL: https://github.com/dryichen/immunoTriage
+BugReports: https://github.com/dryichen/immunoTriage/issues
+Encoding: UTF-8
+LazyData: true
+LazyDataCompression: xz
+Depends: R (>= 4.1)
+Imports: stats, utils, matrixStats, survival, glmnet
+Suggests: GSVA, ranger, xgboost, lme4, testthat (>= 3.0.0), knitr, rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 7.3.3
+Config/testthat/edition: 3

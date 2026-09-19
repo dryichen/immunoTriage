@@ -1,0 +1,67 @@
+---
+title: "Benchmarking immune signatures honestly, in gastric cancer"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Benchmarking immune signatures honestly, in gastric cancer}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+A signature that separates outcomes is not thereby informative: randomly chosen genes
+of the same size often do the same. `immunoTriage` makes the two comparisons that decide
+the question — against a matched random null, and against what any model could achieve
+on the same data.
+
+```{r setup}
+library(immunoTriage)
+data(gc_ici); data(gc_tcga); data(gastro_signatures); data(gastro_controls)
+sigs <- c(gastro_signatures, gastro_controls)
+```
+
+## Prognosis, in untreated gastric cancer
+
+```{r prognosis}
+y <- survival::Surv(gc_tcga$time, gc_tcga$event)
+prog <- benchmark_signatures(gc_tcga$expr, y, sigs, n_random = 200, seed = 1)
+prog[order(-prog$delta), c("signature", "performance", "random_median", "delta", "beats_null")]
+```
+
+Note where the confounder controls land. If a proliferation signature outranks the
+immune signatures, the prognostic signal is not immune-specific.
+
+## Response, in checkpoint-treated gastric cancer
+
+```{r response}
+resp <- benchmark_signatures(gc_ici$expr, gc_ici$response, sigs, n_random = 200, seed = 1)
+resp[order(-resp$delta), c("signature", "performance", "random_median", "delta", "beats_null")]
+```
+
+## The dissociation
+
+```{r dissoc}
+d <- test_dissociation(prog, resp, gastro_families,
+                       target = "immune", confounder = "confounder")
+d$per_family
+d$interaction_p
+```
+
+The immune family shifting between settings is only interpretable if the confounder
+family does not. `test_dissociation()` reports both so the comparison cannot be made
+by accident.
+
+## What is the ceiling?
+
+```{r ceiling, eval=FALSE}
+x  <- t(gc_ici$expr)
+cl <- estimate_ceiling(x, gc_ici$response, models = c("enet", "rf"), nfolds = 5)
+cl$per_model; cl$ceiling
+compare_to_ceiling(resp, cl)
+```
+
+If the ceiling sits close to the best signature, the task is information-limited and
+a more complex model will not help. Reporting that is more useful than publishing
+another score that differs by a rounding error.

@@ -1,0 +1,51 @@
+signature,top_cell_type,immune_attributed,predicted_effect,triage_call
+Teff-IFNG_Fehrenbacher,NK,1,0.08292,test for treatment response
+CTL_Jiang,NK,1,0.07979,test for treatment response
+TIS_Damotte,NK,1,0.07761,test for treatment response
+Tcell-inflamed_Ayers,NK,1,0.07761,test for treatment response
+Teff_McDermott,NK,1,0.07747,test for treatment response
+STAT1_Care,Macro,1,0.07506,test for treatment response
+VIGex_Hernando-Calvo,NK,1,0.07385,test for treatment response
+Inflammatory_Thompson,NK,1,0.07222,test for treatment response
+CYT_Davoli,NK,1,0.07218,test for treatment response
+APM_Wang,NK,1,0.07218,test for treatment response
+IRG_Ayers,NK,1,0.07096,test for treatment response
+Chemokine_Messina,Macro,1,0.07008,test for treatment response
+GeparSixto_Karn,NK,1,0.0691,test for treatment response
+CD39-CD8Tcell_Chow,NK,1,0.06809,test for treatment response
+ImmuneScore_Roh,Macro,1,0.06719,test for treatment response
+ImmunoScore_Hao,NK,1,0.06709,test for treatment response
+MHC-I_Liu,NK,1,0.06593,test for treatment response
+CCL5-CXCL9_Dangaj,NK,1,0.06537,test for treatment response
+APM_Thompson,NK,1,0.06251,test for treatment response
+KDM5A_Wang,NK,1,0.06249,test for treatment response
+Response_Chen,Macro,1,0.06118,weak; test only with a strong prior
+M1_Hwang,Tcell,1,0.05795,weak; test only with a strong prior
+IMPRES_Auslander,Tcell,1,0.05591,weak; test only with a strong prior
+IFN_Ayers,Macro,1,0.0508,weak; test only with a strong prior
+Macrophage_Danaher,Macro,1,0.04953,weak; test only with a strong prior
+CD8_Sade-Feldman,NK,1,0.04943,weak; test only with a strong prior
+peri-Tcell_Hwang,Macro,1,0.04729,weak; test only with a strong prior
+MHC-II_Liu,Macro,1,0.04133,weak; test only with a strong prior
+PDL1_Nishino,Tcell,1,0.0394,weak; test only with a strong prior
+PTEN-MITF_Cabrita,Fibro,0,0.03884,weak; test only with a strong prior
+ImmuneCells_Xiong,Macro,1,0.03811,weak; test only with a strong prior
+Bcell_Helmink,Bcell,1,0.03592,not worth a response cohort
+EMTstroma_Wang,Fibro,0,0.03378,not worth a response cohort
+TLS_Cabrita,Tcell,1,0.03284,not worth a response cohort
+IMS_Cui,Fibro,0,0.0328,not worth a response cohort
+C-ECM_Chakravarthy,Fibro,0,0.03109,not worth a response cohort
+ADO_Sidders,Fibro,0,0.02687,not worth a response cohort
+MPS_Guijarro,Epi,0,0.02605,not worth a response cohort
+TUMOR-VASCULATURE-UP_Lu,Fibro,0,0.02546,not worth a response cohort
+CIN70_Carter,Epi,0,0.02416,not worth a response cohort
+IRG_Yang,Endo,0,0.02398,not worth a response cohort
+Bcell_Budczies,Bcell,1,0.02379,not worth a response cohort
+CIN25_Carter,Epi,0,0.02354,not worth a response cohort
+proliferation_Pabla,Epi,0,0.02243,not worth a response cohort
+Blood_Friedlander,Fibro,0,0.02215,not worth a response cohort
+EMT_Thompson,Epi,0,0.02121,not worth a response cohort
+NonResponse_Chen,Epi,0,0.02061,not worth a response cohort
+TGFB_Mariathasan,Fibro,0,0.0206,not worth a response cohort
+Tcell-exclusion_Arnon,Fibro,0,0.01589,not worth a response cohort
+WNT-beta-catenin_Takeuchi,Fibro,0,0.01201,not worth a response cohort
