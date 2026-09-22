@@ -113,8 +113,7 @@ in the companion repository `dryichen/immunoTriage-paper`.
 
 ## Citation
 
-immunoTriage: calibrating immune transcriptomic signatures against chance and resolving their
-cellular origin. Manuscript in preparation.
+Immune gene-expression signatures predict response to checkpoint blockade far better than survival: a matched-null benchmark of 52 published signatures. Manuscript in preparation.
 
 ## License
 
