@@ -117,7 +117,7 @@ in the companion repository `dryichen/immunoTriage-paper`.
 
 ## Citation
 
-Immune gene-expression signatures are more informative for checkpoint response than for survival: a matched-null benchmark of 52 published signatures. Manuscript in preparation.
+Immune gene-expression signatures carry treatment-specific information: a matched-null benchmark of 52 published signatures, and immunoTriage, a locked rule for prioritizing new ones. Manuscript in preparation.
 
 ## License
 
