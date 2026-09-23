@@ -26,6 +26,10 @@ is worth testing in a checkpoint cohort:
   scoring, on a checkpoint-treated cohort never used in development (metastatic urothelial
   carcinoma, GSE176307): rho = +0.38, one-sided P = 0.003; 15 of the 20 signatures called
   for testing worked there, against 7 of 19 called not worth a cohort;
+- applied, with the predictions again locked beforehand, to a published signature library it
+  was not trained on (the curation's 90 tumor-microenvironment signatures, none among the 50;
+  74 predictable): rho = +0.45, one-sided P = 3e-5; 8 of 16 called for testing worked there,
+  against 2 of 37 called not worth a cohort;
 - rebuilt from a lung adenocarcinoma atlas (GSE131907), the rule predicts almost as well
   (held-out rho = 0.65), although the registered permutation test of atlas independence
   narrowly failed (P = 0.072). Treat the shipped model as calibrated on the gastric atlas.
