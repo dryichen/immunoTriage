@@ -21,6 +21,9 @@
 #' @param cell_type Character vector, one label per cell (column of `expr`).
 #' @param signatures Named list of gene sets.
 #' @param min_genes Minimum genes that must be present.
+#' @param weight `"cell"` (default) scores the genes within each cell type; `"composition"`
+#'   weights each type by its share of cells, giving the share of a pseudo-bulk profile
+#'   that type contributes. The shipped model expects the default.
 #'
 #' @examples
 #' # a toy atlas: NK cells carry signature A, malignant epithelium carries signature B
@@ -41,16 +44,20 @@
 #' @return A data frame with one row per signature: the z-scored enrichment in each
 #'   cell type, the cell type contributing most, and that z.
 #' @export
-attribute_signature <- function(expr, cell_type, signatures, min_genes = 3L) {
+attribute_signature <- function(expr, cell_type, signatures, min_genes = 3L,
+                                weight = c("cell", "composition")) {
+  weight <- match.arg(weight)
   stopifnot(is.matrix(expr), length(cell_type) == ncol(expr))
-  Z <- .zrow(expr)
+  Z <- if (weight == "cell") .zrow(expr) else expm1(expr)
   types <- sort(unique(as.character(cell_type)))
+  frac <- vapply(types, function(t) mean(cell_type == t), 1)
   out <- lapply(names(signatures), function(nm) {
     g <- intersect(.as_signature(signatures[[nm]])$genes, rownames(expr))
     if (length(g) < min_genes) return(NULL)
     per_cell <- colMeans(Z[g, , drop = FALSE], na.rm = TRUE)
     mu <- vapply(types, function(t) mean(per_cell[cell_type == t], na.rm = TRUE), 1)
-    z  <- (mu - mean(mu)) / (stats::sd(mu) + 1e-9)
+    z <- if (weight == "cell") (mu - mean(mu)) / (stats::sd(mu) + 1e-9)
+         else { v <- mu * frac; v / sum(v) }
     data.frame(signature = nm, top_cell_type = types[which.max(z)],
                top_z = max(z), t(z), check.names = FALSE)
   })
@@ -58,6 +65,57 @@ attribute_signature <- function(expr, cell_type, signatures, min_genes = 3L) {
   if (!length(out)) stop("no signature had enough genes present")
   res <- do.call(rbind, out)
   rownames(res) <- NULL
+  res
+}
+
+#' Refer an attribution to random gene sets of the same size
+#'
+#' `attribute_signature()` says where a signature's signal comes from; it does not say
+#' whether that is more than a random set of the same size would give in the same atlas.
+#' This draws such sets and returns each cell type's attribution as a z against them, so
+#' the attribution carries the same kind of null as everything else in this package.
+#'
+#' An abundance-weighted alternative is available through `weight = "composition"` in
+#' [attribute_signature()], which reports each type's share of a pseudo-bulk profile
+#' rather than the expression of the genes within it. It is provided because it is the
+#' quantity a bulk score actually mixes, but it predicted a signature's measured effect
+#' less well than the default (held-out rho 0.55 against 0.68 on the 50 signatures of the
+#' accompanying study), so the default is unchanged.
+#'
+#' @param expr Genes x cells matrix from a single-cell reference, log scale.
+#' @param cell_type Character vector, one label per cell.
+#' @param signatures Named list of gene sets.
+#' @param n Random gene sets drawn per signature size.
+#' @param weight `"cell"` (default) or `"composition"`, as in [attribute_signature()].
+#' @param seed Seed for the draws.
+#'
+#' @return A data frame with one row per signature and cell type: the observed
+#'   attribution, the mean and standard deviation of the null, and the z.
+#' @export
+attribution_null <- function(expr, cell_type, signatures, n = 200L,
+                             weight = c("cell", "composition"), seed = 1L) {
+  weight <- match.arg(weight)
+  stopifnot(is.matrix(expr), length(cell_type) == ncol(expr))
+  set.seed(seed)
+  obs <- attribute_signature(expr, cell_type, signatures, weight = weight)
+  types <- setdiff(colnames(obs), c("signature", "top_cell_type", "top_z"))
+  sizes <- vapply(obs$signature, function(nm)
+    length(intersect(.as_signature(signatures[[nm]])$genes, rownames(expr))), 1L)
+  out <- list()
+  for (k in sort(unique(sizes))) {
+    draws <- t(vapply(seq_len(n), function(i) {
+      g <- sample(rownames(expr), k)
+      as.numeric(attribute_signature(expr, cell_type, list(r = g), min_genes = 1L,
+                                     weight = weight)[1, types])
+    }, numeric(length(types))))
+    mu <- colMeans(draws); sd <- apply(draws, 2, stats::sd)
+    for (nm in obs$signature[sizes == k]) {
+      o <- as.numeric(obs[obs$signature == nm, types])
+      out[[length(out) + 1L]] <- data.frame(signature = nm, cell_type = types,
+        attribution = o, null_mean = mu, null_sd = sd, z = (o - mu) / (sd + 1e-12))
+    }
+  }
+  res <- do.call(rbind, out); rownames(res) <- NULL
   res
 }
 

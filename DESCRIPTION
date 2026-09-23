@@ -2,7 +2,7 @@ Package: immunoTriage
 Type: Package
 Title: Benchmarking Immune Gene-Expression Signatures Against Matched Random
     Gene Sets, with Cell-Type Attribution and Triage
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: person("dryichen", role = c("aut","cre"),
     email = "200455590+dryichen@users.noreply.github.com")
 Description: Tools to evaluate immune gene-expression signatures honestly.

@@ -5,7 +5,13 @@
 \alias{triage_signature}
 \title{Predict how a signature will behave, before touching a patient cohort}
 \usage{
-attribute_signature(expr, cell_type, signatures, min_genes = 3L)
+attribute_signature(
+  expr,
+  cell_type,
+  signatures,
+  min_genes = 3L,
+  weight = c("cell", "composition")
+)
 
 triage_signature(attribution, cell_map = NULL)
 }
@@ -17,6 +23,10 @@ triage_signature(attribution, cell_map = NULL)
 \item{signatures}{Named list of gene sets.}
 
 \item{min_genes}{Minimum genes that must be present.}
+
+\item{weight}{`"cell"` (default) scores the genes within each cell type; `"composition"`
+weights each type by its share of cells, giving the share of a pseudo-bulk profile
+that type contributes. The shipped model expects the default.}
 
 \item{attribution}{Output of [attribute_signature()].}
 
