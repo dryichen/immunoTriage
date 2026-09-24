@@ -11,10 +11,11 @@ against a random-gene-set null matched on **gene-set size and scoring engine**, 
 signature with the method of its own publication, and tests whether an immune-specific
 result survives confounder controls (proliferation, hypoxia, chromosomal instability).
 
-In the accompanying analysis of 52 published signatures, the inflamed/interferon family
-gained +1.54 null standard deviations for checkpoint response against +0.27 for survival
-(permutation P = 0.004): the same signatures that predict response carry little prognostic
-information without the treatment.
+In the accompanying analysis of 52 published signatures, the inflamed/interferon family gained
++1.54 null standard deviations for progression-free survival under checkpoint blockade against
++0.27 for survival in patients who never received it; the dissociation between the response and
+prognostic settings is +0.26 (response-label permutation P = 0.004). The same signatures that
+predict response carry little prognostic information without the treatment.
 
 The package also asks which cells produce a signature's signal, using any single-cell
 reference atlas with cell-type labels, and predicts from that alone whether the signature
@@ -117,7 +118,7 @@ in the companion repository `dryichen/immunoTriage-paper`.
 
 ## Citation
 
-Immune gene-expression signatures carry treatment-specific information: a matched-null benchmark of 52 published signatures, and immunoTriage, a locked rule for prioritizing new ones. Manuscript in preparation.
+Immune gene-expression signatures carry treatment-specific information: a matched-null benchmark of 52 signatures. Manuscript in preparation.
 
 ## License
 

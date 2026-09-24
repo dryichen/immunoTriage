@@ -15,7 +15,11 @@ triage_model
 Ridge coefficients relating a signature's cell-type attribution to the checkpoint
 response effect it will show, fitted on the 50 signatures in [sig_behavior].
 Held-out performance (leave-one-signature-out) is Spearman rho = 0.68 against the
-measured effect, AUC 0.92 for identifying a signature that works. At `cut_use` the
-precision is 0.85 against a base rate of 0.42, at 0.81 recall.
+measured effect, AUC 0.92 for identifying a signature that works, and at `cut_use` a precision of
+0.85 against a base rate of 0.42 at 0.81 recall. Those are development figures and they fall on
+validation: in a checkpoint cohort never used in development the locked predictions reached
+rho = 0.38 (one-sided P = 0.003) and an AUC of 0.71 (95% CI 0.56 to 0.85), and on a published
+library of 74 signatures the model was not trained on, rho = 0.45. Use it to order candidates,
+not to rule one out.
 }
 \keyword{datasets}

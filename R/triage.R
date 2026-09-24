@@ -195,12 +195,17 @@ triage_signature <- function(attribution, cell_map = NULL) {
 #' signature can contain genes whose expression is dominated by epithelium or stroma,
 #' and those genes dilute the quantity the set is meant to measure.
 #'
-#' Removing them improves the signature. Across 318 signature-by-cohort comparisons in
-#' 12 checkpoint cohorts, attribution-guided removal raised the response AUC by +0.008 on
-#' average (paired P = 1 x 10^-4), and 23 of 27 signatures improved. Because shorter gene
-#' sets score better in general, the comparison that matters is against dropping the same
-#' number of genes at random from the same signature: random removal made signatures
-#' slightly worse (-0.002), and guided removal beat it at P = 4 x 10^-7.
+#' Whether removing them improves the signature is not settled. Across 329 signature-by-cohort
+#' comparisons in 12 checkpoint cohorts, attribution-guided removal raised the response AUC by
+#' +0.008 on average, which a two-way cluster bootstrap over signatures and cohorts does not
+#' distinguish from zero (P = 0.12; crossed random effects P = 0.18). Because shorter gene sets
+#' score better in general, the comparison that matters is against dropping the same number of
+#' genes at random from the same signature: guided removal beats random removal at cluster
+#' bootstrap P = 0.048 (crossed random effects P = 0.071). A learned version of the same idea,
+#' weighting genes by their attribution rather than dropping them, was locked in advance and
+#' gained nothing in held-out cohorts (+0.006 AUC, one-sided P = 0.16), and permuting the weights
+#' among the same genes reached that gain half the time. Treat this as a diagnostic that shows
+#' which genes report on the wrong cells, not as a repair that is known to work.
 #'
 #' @param expr Genes x cells matrix from a single-cell reference, log scale.
 #' @param cell_type Character vector, one label per cell.
