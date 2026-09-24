@@ -118,7 +118,7 @@ in the companion repository `dryichen/immunoTriage-paper`.
 
 ## Citation
 
-immunoTriage: calibrating immune gene-expression signatures against matched random gene sets. Manuscript in preparation.
+Calibrating immune gene-expression signatures against matched random gene sets (immunoTriage). Manuscript in preparation.
 
 ## License
 
