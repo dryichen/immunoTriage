@@ -118,7 +118,7 @@ in the companion repository `dryichen/immunoTriage-paper`.
 
 ## Citation
 
-Immune gene-expression signatures carry treatment-specific information: a matched-null benchmark of 52 signatures. Manuscript in preparation.
+The information in immune gene-expression signatures is conditional on treatment: a matched-null benchmark of 52 published signatures. Manuscript in preparation.
 
 ## License
 
