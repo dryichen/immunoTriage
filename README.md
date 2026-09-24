@@ -118,7 +118,7 @@ in the companion repository `dryichen/immunoTriage-paper`.
 
 ## Citation
 
-The information in immune gene-expression signatures is conditional on treatment: a matched-null benchmark of 52 published signatures. Manuscript in preparation.
+immunoTriage: calibrating immune gene-expression signatures against matched random gene sets. Manuscript in preparation.
 
 ## License
 
